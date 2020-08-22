@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="215f7746-c812-40d1-bde3-7961a4b5cb66" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/m.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/m.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainScript.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainScript.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dict/final_articles_wp_poster_bot.csv" beforeDir="false" afterPath="$PROJECT_DIR$/dict/final_articles_wp_poster_bot.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
