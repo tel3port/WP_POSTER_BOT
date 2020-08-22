@@ -38,6 +38,7 @@ def random_image():
     ]
     return cta_image_list[randint(0, len(cta_image_list) - 1)].strip()
 
+
 def random_aff_link():
     base_url_list = [
         f'https://afflat3d1.com/lnk.asp?o=9075&c=918277&a=242672&k=EBF2EDB942180C1F39AC57CE3994F57C&l=8504&s1=wordpress',
@@ -201,7 +202,7 @@ class WP_Auto_Bot:
                     content = soup.find('div', class_="entry-content")
 
                     # TODO optimise here
-                    opt_heading, opt_content = self.prl_content_optimiser(heading.text, content.text, keyword_string,keyword_list, external_link_list)
+                    opt_heading, opt_content = self.prl_content_optimiser(heading.text, content.text, keyword_string, keyword_list, external_link_list)
 
                     with open('dict/final_articles_wp_poster_bot.csv', 'a', newline='') as file:
                         fieldnames = ['heading', 'content']
@@ -209,8 +210,8 @@ class WP_Auto_Bot:
 
                         writer.writerow({'heading': opt_heading, 'content': opt_content})
 
-        except Exception as em:
-            print('prl_extractor Error occurred ' + str(em))
+        except Exception as emxx:
+            print('prl_extractor Error occurred ' + str(emxx))
             print(traceback.format_exc())
             pass
 
@@ -219,11 +220,10 @@ class WP_Auto_Bot:
 
     @staticmethod
     def prl_content_optimiser(title, content, my_kw_str, my_keyword_list, my_external_links):
-        print(f"kw string: {my_kw_str}")
+        print("kw str len: ", len(my_kw_str))
         random_kword = my_keyword_list[randint(0, len(my_keyword_list) - 1)]
 
         opt_title = title.replace(title[:title.index(' ')], random_kword, 1)  # replace first word with keyword
-        opt_kw_str = f'<article> <h3>{opt_title}</h3> <p>{content}</p> </article>'
         opt_content_0 = content.lower()
         opt_content_1 = opt_content_0.replace('.', ". \n")
         words = re.findall(r'\w+', opt_content_1)
@@ -338,46 +338,44 @@ class WP_Auto_Bot:
 
 if __name__ == "__main__":
     loop_count_num = 0
-    for _ in range(5):
-        print(banner_generator())
 
-#     while 1:
-#         try:
-#             print(f"MAIN LOOP COUNT NUM {loop_count_num}")
-#
-#             autobot = WP_Auto_Bot()
-#             urls = autobot.credentials_getter()[0]
-#             keywords = autobot.credentials_getter()[1]
-#
-#             my_cred_size = len(urls)
-#
-#             random_account_num = randint(0, my_cred_size)  # get a random account row
-#             account_url = urls[random_account_num]
-#             account_kws = keywords[random_account_num]
-#
-#             external_links = autobot.external_link_extractor(account_url.strip())
-#             autobot.prl_article_extractor_and_saver('https://www.killerplrarticles.com', '2ksaber@gmail.com', '2ksaber@gmail.com', account_kws, account_kws.split(','), external_links)
-#
-#             headings, articles = autobot.optimised_article_getter()
-#
-#             articles_num = len(headings)
-#
-#             autobot.wp_login()
-#             for ix in range(articles_num):
-#
-#                 autobot.wp_post(headings[ix], articles[ix], account_url, account_kws)
-#
-#             autobot.clean_up()
-#
-#             loop_count_num += 1
-#
-#         except Exception as em:
-#
-#             print('main loop Error occurred ' + str(em))
-#
-#             print(traceback.format_exc())
-#
-#
-# print("broke out of the script")
-# # todo create multiple wp accounts
-# # todo upload to aws and deploy
+    while 1:
+        try:
+            print(f"MAIN LOOP COUNT NUM {loop_count_num}")
+
+            autobot = WP_Auto_Bot()
+            urls = autobot.credentials_getter()[0]
+            keywords = autobot.credentials_getter()[1]
+
+            my_cred_size = len(urls)
+
+            random_account_num = randint(0, my_cred_size)  # get a random account row
+            account_url = urls[random_account_num]
+            account_kws = keywords[random_account_num]
+
+            external_links = autobot.external_link_extractor(account_url.strip())
+            autobot.prl_article_extractor_and_saver('https://www.killerplrarticles.com', '2ksaber@gmail.com', '2ksaber@gmail.com', account_kws, account_kws.split(','), external_links)
+
+            headings, articles = autobot.optimised_article_getter()
+
+            articles_num = len(headings)
+
+            autobot.wp_login()
+            for ix in range(articles_num):
+
+                autobot.wp_post(headings[ix], articles[ix], account_url, account_kws)
+
+            autobot.clean_up()
+
+            loop_count_num += 1
+
+        except Exception as em:
+
+            print('main loop Error occurred ' + str(em))
+
+            print(traceback.format_exc())
+
+
+print("broke out of the script")
+# todo create multiple wp accounts
+# todo upload to aws and deploy
