@@ -15,6 +15,52 @@ from selenium.webdriver.support.ui import WebDriverWait
 import globals as gls
 
 
+def random_image():
+    cta_image_list = [
+        'https://i.ibb.co/NmyVCZ1/h.gif',
+        'https://i.ibb.co/PmgPyB5/watch.gif',
+        'https://i.ibb.co/PFP8rP1/i.gif',
+        'https://i.ibb.co/5KdKh82/g.gif',
+        'https://i.ibb.co/cgPbfqB/f.gif',
+        'https://i.ibb.co/7Xr3CmG/e.gif',
+        'https://i.ibb.co/72CXK1Z/d.gif',
+        'https://i.ibb.co/wykkbvL/b.gif',
+        'https://i.ibb.co/0c3DN5r/c.gif',
+        'https://i.ibb.co/KLGcHpK/a.gif',
+        'https://i.ibb.co/ZzrnHkf/awkust-35.gif',
+        'https://i.ibb.co/SwBJVwH/awkust-55.jpg',
+        'https://i.ibb.co/gTvN37c/awkust-33.gif',
+        'https://i.ibb.co/w6Z9DKJ/awkust-31.gif',
+        'https://i.ibb.co/Hhvw3ZP/awkust-30.gif',
+        'https://i.ibb.co/QnkcdNZ/awkust-4.gif',
+        'https://i.ibb.co/HhbnzTb/awkust-23.gif',
+
+    ]
+    return cta_image_list[randint(0, len(cta_image_list) - 1)].strip()
+
+def random_aff_link():
+    base_url_list = [
+        f'https://afflat3d1.com/lnk.asp?o=9075&c=918277&a=242672&k=EBF2EDB942180C1F39AC57CE3994F57C&l=8504&s1=wordpress',
+        f'https://afflat3d1.com/lnk.asp?o=18084&c=918277&a=242672&k=580FAC50554E1E3F5AACC583D06DE0AD&l=19332&s1=wordpress',
+        f'https://afflat3d1.com/lnk.asp?o=18099&c=918277&a=242672&k=89F4A996358DADE546AA2BF166C9A7F9&l=19340&s1=wordpress',
+        f'https://afflat3d1.com/lnk.asp?o=18095&c=918277&a=242672&k=C12104E1F23E5C340EAF089395EBD125&l=19345&s1=wordpress',
+        f'https://afflat3d1.com/lnk.asp?o=18627&c=918277&a=242672&k=B97D03D349CE4FE1BE27D635A16AD24B&l=19818&s1=wordpress',
+        f'https://afflat3d1.com/lnk.asp?o=19322&c=918277&a=242672&k=F5A185D25CB8289CD91DF3803D395C64&l=20323&s1=wordpress',
+        f'https://afflat3d1.com/lnk.asp?o=19594&c=918277&a=242672&k=30F2E776196A860C8FE3BBDE6D69D334&l=20556&s1=wordpress',
+        f'https://afflat3d1.com/lnk.asp?o=7527&c=918277&a=242672&k=956D04E486409DA8ED5528F3448FB86F&l=6239&s1=wordpress',
+        f'https://afflat3d1.com/lnk.asp?o=10721&c=918277&a=242672&k=18DBF0EF0820E9FDB52660B31C464213&l=10603&s1=wordpress',
+        f'https://afflat3d1.com/lnk.asp?o=18174&c=918277&a=242672&k=29DA121E59E0456E7F1B9D705D276327&l=19429&s1=wordpress',
+    ]
+    return base_url_list[randint(0, len(base_url_list) - 1)].strip()
+
+
+def banner_generator():
+    rand_ima = random_image()
+    rand_link = random_aff_link()
+    code = f'<a href="{rand_link}"><img src="{rand_ima}" title="Example Image Link" width="600" height="200" /></a>'
+    return code
+
+
 class WP_Auto_Bot:
     def __init__(self):
         chrome_options = webdriver.ChromeOptions()
@@ -207,7 +253,7 @@ class WP_Auto_Bot:
                 opt_content_3 += word + " "
             count += 1
 
-        return opt_title, f'{opt_content_3}.'
+        return opt_title, f'{banner_generator()} <br> {opt_content_3}.<br> {banner_generator()} <br>'
 
     @staticmethod
     def optimised_article_getter():
@@ -292,44 +338,46 @@ class WP_Auto_Bot:
 
 if __name__ == "__main__":
     loop_count_num = 0
+    for _ in range(5):
+        print(banner_generator())
 
-    while 1:
-        try:
-            print(f"MAIN LOOP COUNT NUM {loop_count_num}")
-
-            autobot = WP_Auto_Bot()
-            urls = autobot.credentials_getter()[0]
-            keywords = autobot.credentials_getter()[1]
-
-            my_cred_size = len(urls)
-
-            random_account_num = randint(0, my_cred_size)  # get a random account row
-            account_url = urls[random_account_num]
-            account_kws = keywords[random_account_num]
-
-            external_links = autobot.external_link_extractor(account_url.strip())
-            autobot.prl_article_extractor_and_saver('https://www.killerplrarticles.com', '2ksaber@gmail.com', '2ksaber@gmail.com', account_kws, account_kws.split(','), external_links)
-
-            headings, articles = autobot.optimised_article_getter()
-
-            articles_num = len(headings)
-
-            autobot.wp_login()
-            for ix in range(articles_num):
-
-                autobot.wp_post(headings[ix], articles[ix], account_url, account_kws)
-
-            autobot.clean_up()
-
-            loop_count_num += 1
-
-        except Exception as em:
-
-            print('main loop Error occurred ' + str(em))
-
-            print(traceback.format_exc())
-
-
-print("broke out of the script")
-# todo create multiple wp accounts
-# todo upload to aws and deploy
+#     while 1:
+#         try:
+#             print(f"MAIN LOOP COUNT NUM {loop_count_num}")
+#
+#             autobot = WP_Auto_Bot()
+#             urls = autobot.credentials_getter()[0]
+#             keywords = autobot.credentials_getter()[1]
+#
+#             my_cred_size = len(urls)
+#
+#             random_account_num = randint(0, my_cred_size)  # get a random account row
+#             account_url = urls[random_account_num]
+#             account_kws = keywords[random_account_num]
+#
+#             external_links = autobot.external_link_extractor(account_url.strip())
+#             autobot.prl_article_extractor_and_saver('https://www.killerplrarticles.com', '2ksaber@gmail.com', '2ksaber@gmail.com', account_kws, account_kws.split(','), external_links)
+#
+#             headings, articles = autobot.optimised_article_getter()
+#
+#             articles_num = len(headings)
+#
+#             autobot.wp_login()
+#             for ix in range(articles_num):
+#
+#                 autobot.wp_post(headings[ix], articles[ix], account_url, account_kws)
+#
+#             autobot.clean_up()
+#
+#             loop_count_num += 1
+#
+#         except Exception as em:
+#
+#             print('main loop Error occurred ' + str(em))
+#
+#             print(traceback.format_exc())
+#
+#
+# print("broke out of the script")
+# # todo create multiple wp accounts
+# # todo upload to aws and deploy
