@@ -2,10 +2,12 @@
   <dictionary name="m">
     <words>
       <w>autobot</w>
+      <w>chromedriver</w>
       <w>emxx</w>
       <w>killerplrarticles</w>
       <w>kword</w>
       <w>prepub</w>
+      <w>webdriver</w>
     </words>
   </dictionary>
 </component>
