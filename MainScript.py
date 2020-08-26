@@ -109,8 +109,8 @@ class WP_Auto_Bot:
 
         return my_base_urls, my_keywords
 
-    def wp_login(self):
-        wp_login_url = 'https://wordpress.com/wp-login.php?checkemail=confirm'
+    def wp_login(self, site):
+        wp_login_url = f'{site}/wp-login.php?checkemail=confirm'
         wp_email_xpath = '//*[@id="user_login"]'
         wp_password_xpath = '//*[@id="user_pass"]'
         wp_login_xpath = '//*[@id="wp-submit"]'
@@ -360,7 +360,7 @@ if __name__ == "__main__":
 
             articles_num = len(headings)
 
-            autobot.wp_login()
+            autobot.wp_login(account_url)
             for ix in range(articles_num):
 
                 autobot.wp_post(headings[ix], articles[ix], account_url, account_kws)
