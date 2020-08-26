@@ -109,13 +109,13 @@ class WP_Auto_Bot:
 
         return my_base_urls, my_keywords
 
-    def wp_login(self, site):
+    def wp_login(self, site, email, password):
         wp_login_url = f'{site}/wp-login.php?checkemail=confirm'
         wp_email_xpath = '//*[@id="user_login"]'
         wp_password_xpath = '//*[@id="user_pass"]'
         wp_login_xpath = '//*[@id="wp-submit"]'
-        wp_email = "kensymr@aol.com"
-        wp_password = '7zDFacxf&VXba^nCC53FXWCCAh9'
+        wp_email = email
+        wp_password = password
 
         try:
             self.driver.delete_all_cookies()
@@ -360,7 +360,7 @@ if __name__ == "__main__":
 
             articles_num = len(headings)
 
-            autobot.wp_login(account_url)
+            autobot.wp_login(account_url, 'epiz_26586566', 'KZRooa&x!@I^0hHY')
             for ix in range(articles_num):
 
                 autobot.wp_post(headings[ix], articles[ix], account_url, account_kws)
