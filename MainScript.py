@@ -118,7 +118,7 @@ class WP_Auto_Bot:
         wp_password = password
 
         try:
-            self.driver.delete_all_cookies()
+
             self.driver.get(wp_login_url)
             gls.sleep_time()
             self.driver.find_element_by_xpath(wp_email_xpath).send_keys(wp_email)
@@ -277,6 +277,7 @@ class WP_Auto_Bot:
         code_editor_xpath = "//button[contains(.,'Code editor')]"
         prepub_checkbox_xpath = '//*[@id="inspector-checkbox-control-2"]'
         close_panel_xpath = '//*[@aria-label="Close panel"]'
+        block_editor_dialog_xpath = '//*[@aria-label="Close dialog"]'
         drop_down_xpath = '//*[@aria-label="More tools & options"]'
         tags_xpath = "//button[contains(.,'Tags')]"
         tags_input_xpath = '//*[@id="components-form-token-input-0"]'
@@ -286,6 +287,7 @@ class WP_Auto_Bot:
         try:
             self.driver.get(wp_post_url)
             time.sleep(10)
+            self.driver.find_element_by_xpath(block_editor_dialog_xpath).click()  # disable modal
             self.driver.find_element_by_xpath(drop_down_xpath).click()
             gls.sleep_time()
             self.driver.find_element_by_xpath(code_editor_xpath).click()
