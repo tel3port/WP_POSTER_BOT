@@ -356,7 +356,7 @@ if __name__ == "__main__":
             account_kws = keywords[random_account_num]
 
             external_links = autobot.external_link_extractor(account_url.strip())
-            autobot.prl_article_extractor_and_saver('https://www.killerplrarticles.com', '2ksaber@gmail.com', '2ksaber@gmail.com', account_kws, account_kws.split(','), external_links)
+            autobot.prl_article_extractor_and_saver('https://www.killerplrarticles.com', '2ksagfgfber@gmail.com', '2kdgssaber@gmail.com', account_kws, account_kws.split(','), external_links)
 
             headings, articles = autobot.optimised_article_getter()
 
